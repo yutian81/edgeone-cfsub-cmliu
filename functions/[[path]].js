@@ -10,7 +10,8 @@ let addressescsv = [];
 let DLS = 8;
 let rename = 'yutian81';
 let countrynum = 4;
-let remarkIndex = 1;//CSV备注所在列偏移量
+// let speednum = 2
+let remarkIndex = 2; //CSV备注所在列偏移量
 
 let subConverter = 'SUBAPI.cmliussss.net';
 let subConfig = 'https://raw.githubusercontent.com/cmliu/ACL4SSR/main/Clash/config/ACL4SSR_Online_Full_MultiMode.ini';
@@ -186,6 +187,8 @@ async function 整理测速结果(tls) {
 					const port = row[1];
 					const dataCenter = row[tlsIndex + remarkIndex];
 					const country = row[tlsIndex + countrynum];
+					const speed = parseFloat(row[row.length - 1]);
+					// const speed = row[tlsIndex + speednum];
 					const formattedAddress = `${ipAddress}:${port}#${country} | ${speed}mb/s | ${rename}`;
 					// const formattedAddress = `${ipAddress}:${port}#${dataCenter}`;
 
@@ -539,6 +542,7 @@ export async function onRequest(context) {
 	DLS = Number(env.DLS) || DLS;
 	rename = env.RENAME || rename;
 	countrynum = parseInt(env.COUNTRYNUM || countrynum, 10);
+	// speednum = parseInt(env.SPEEDNUM || speednum, 10);
 	remarkIndex = Number(env.CSVREMARK) || remarkIndex;
 
 	if (socks5DataURL) {
