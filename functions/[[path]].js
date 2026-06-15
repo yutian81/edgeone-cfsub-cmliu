@@ -7,7 +7,9 @@ let addressesnotls = [];
 let addressesnotlsapi = [];
 
 let addressescsv = [];
-let DLS = 7;
+let DLS = 8;
+let rename = 'yutian81';
+let countrynum = 4;
 let remarkIndex = 1;//CSV备注所在列偏移量
 
 let subConverter = 'SUBAPI.cmliussss.net';
@@ -183,7 +185,9 @@ async function 整理测速结果(tls) {
 					const ipAddress = row[0];
 					const port = row[1];
 					const dataCenter = row[tlsIndex + remarkIndex];
-					const formattedAddress = `${ipAddress}:${port}#${dataCenter}`;
+					const country = row[tlsIndex + countrynum];
+					const formattedAddress = `${ipAddress}:${port}#${country} | ${speed}mb/s | ${rename}`;
+					// const formattedAddress = `${ipAddress}:${port}#${dataCenter}`;
 
 					// 处理代理IP池
 					if (csvUrl.includes('proxyip=true') &&
@@ -533,6 +537,8 @@ export async function onRequest(context) {
 	addressesnotls = moveHttpUrls(addressesnotls, addressesnotlsapi);
 	if (env.ADDCSV) addressescsv = await 整理(env.ADDCSV);
 	DLS = Number(env.DLS) || DLS;
+	rename = env.RENAME || rename;
+	countrynum = parseInt(env.COUNTRYNUM || countrynum, 10);
 	remarkIndex = Number(env.CSVREMARK) || remarkIndex;
 
 	if (socks5DataURL) {
