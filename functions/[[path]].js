@@ -187,9 +187,9 @@ async function 整理测速结果(tls) {
 					const port = row[1];
 					const dataCenter = row[tlsIndex + remarkIndex];
 					const country = row[tlsIndex + countrynum];
-					const speed = parseFloat(row[row.length - 1]);
+					const speed = row[row.length - 1];
 					// const speed = row[tlsIndex + speednum];
-					const formattedAddress = `${ipAddress}:${port}#${country} | ${speed}mb/s | ${rename}`;
+					const formattedAddress = `${ipAddress}:${port}#${country} | ${speed} | ${rename}`;
 					// const formattedAddress = `${ipAddress}:${port}#${dataCenter}`;
 
 					// 处理代理IP池
